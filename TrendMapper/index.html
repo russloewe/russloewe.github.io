@@ -1,0 +1,447 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to TrendMapper’s documentation! &#8212; TrendMapper 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">TrendMapper 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-trendmapper-s-documentation">
+<h1>Welcome to TrendMapper’s documentation!<a class="headerlink" href="#welcome-to-trendmapper-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Trend Mapper is a QGIS Python plugin that performs linear regression
+analysis for a vector point layer for sets of features grouped by
+unique values along a chosen field.</p>
+<p>Source code located at <a class="reference external" href="https://github.com/russloewe/TrendMapper">github.com/russloewe/TrendMapper</a> .</p>
+</div>
+<div class="section" id="trend-mapper">
+<h1>Trend Mapper<a class="headerlink" href="#trend-mapper" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="trend_mapper.TrendMapper">
+<em class="property">class </em><code class="descclassname">trend_mapper.</code><code class="descname">TrendMapper</code><span class="sig-paren">(</span><em>iface</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper.html#TrendMapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>QGIS Plugin Implementation.</p>
+<dl class="method">
+<dt id="trend_mapper.TrendMapper.process">
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper.html#TrendMapper.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapper.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is where a lot of the work is done. All the values
+from the dialog are retrieved, then the TrendMapperProcess
+worker thread and the progress bar are set up, connected
+and then launched</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapper.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>test_run=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper.html#TrendMapper.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapper.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run method when TrendMapper in launched.
+Sets up and shows dialog and launches TrendMapper.process()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapper.stp">
+<code class="descname">stp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper.html#TrendMapper.stp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapper.stp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the new layer to the canvas when the processing
+thread signals it’s done</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="trend-mapper-tools">
+<h1>Trend Mapper Tools<a class="headerlink" href="#trend-mapper-tools" title="Permalink to this headline">¶</a></h1>
+<p>A suite of tools for retrieving data from the QGIS interface and for making
+new features and layers</p>
+<span class="target" id="module-trend_mapper_tools"></span><dl class="function">
+<dt id="trend_mapper_tools.addResultFields">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">addResultFields</code><span class="sig-paren">(</span><em>layer</em>, <em>result</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#addResultFields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.addResultFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a float field in a layer for each dict key in results param</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>layer</strong> – The layer to add new fields to</li>
+<li><strong>result</strong> (<em>dict</em>) – A dictionary of results from an analysis function</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Layer type:</th><td class="field-body"><p class="first">QgVectorLayer</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">nothing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.convertedDatapointGenerator">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">convertedDatapointGenerator</code><span class="sig-paren">(</span><em>datapointGen</em>, <em>convertFun</em>, <em>skipOnErr=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#convertedDatapointGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.convertedDatapointGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take stream of data points and apply a function to each then yield</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.createVectorLayer">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">createVectorLayer</code><span class="sig-paren">(</span><em>srcLayer</em>, <em>newLayerName</em>, <em>fieldsToCopy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#createVectorLayer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.createVectorLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new vector layer with geometry and selected fields 
+from a source vector layer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>srcLayer</strong> (<em>QgVectorLayer</em>) – The layer that we will be copying geometry and 
+fields from</li>
+<li><strong>name</strong> (<em>str</em>) – The name for the new vector layer</li>
+<li><strong>attributes</strong> (<em>[</em><em>str</em><em>]</em>) – An array of attirbute names for which we will
+be copying the corresponding fields</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The newly created vector layer</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">QgVectorLayer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.datapointGenerator">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">datapointGenerator</code><span class="sig-paren">(</span><em>featureGenerator</em>, <em>attList</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#datapointGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.datapointGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>pull attributes in the attList from a feature and yield a dict</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.featureGenerator">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">featureGenerator</code><span class="sig-paren">(</span><em>layer</em>, <em>keyName</em>, <em>keyCol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#featureGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.featureGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate features from layer where keyCol equals keyName</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.filterDatapointGenerator">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">filterDatapointGenerator</code><span class="sig-paren">(</span><em>datapointGen</em>, <em>filterFun</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#filterDatapointGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.filterDatapointGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>only yield data points where filter fun is true</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.getLayerByName">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">getLayerByName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#getLayerByName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.getLayerByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the layer object in the map registry by the string name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – The name of the layer to find.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The layer object.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">QgsVectorLayer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.getUniqueKeys">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">getUniqueKeys</code><span class="sig-paren">(</span><em>layer</em>, <em>keyCol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#getUniqueKeys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.getUniqueKeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of distinct values from an attribute column</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>layer</strong> (<em>QgVectorLayer</em>) – The layer to pull the distinct values from.</li>
+<li><strong>keyCol</strong> (<em>str</em>) – The name of the attribute column to pull the unique 
+values from.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of the distinct values found.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.log">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#trend_mapper_tools.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>logMessage(str, tag: str = ‘’, level: QgsMessageLog.MessageLevel = QgsMessageLog.WARNING)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.makeFeature">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">makeFeature</code><span class="sig-paren">(</span><em>dstLayer</em>, <em>feature</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#makeFeature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.makeFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy features form a source vector layer to a target layer. 
+Only copy features whos value of the keyCol attribute is in the 
+featureList array. When copying the features, only copy the 
+attributes whos name is in the attribute array.</p>
+<p>:param feature is actually a dict</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="trend_mapper_tools.organizeData">
+<code class="descclassname">trend_mapper_tools.</code><code class="descname">organizeData</code><span class="sig-paren">(</span><em>datapointGen</em>, <em>dataAttr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_tools.html#organizeData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper_tools.organizeData" title="Permalink to this definition">¶</a></dt>
+<dd><p>collect data and organize data into x number of arrays</p>
+</dd></dl>
+
+</div>
+<div class="section" id="trend-mapper-dialog">
+<h1>Trend Mapper Dialog<a class="headerlink" href="#trend-mapper-dialog" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="trend_mapper.TrendMapperDialog">
+<em class="property">class </em><code class="descclassname">trend_mapper.</code><code class="descname">TrendMapperDialog</code><span class="sig-paren">(</span><em>iface</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.ProgressBar">
+<code class="descname">ProgressBar</code><span class="sig-paren">(</span><em>value</em>, <em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.ProgressBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.ProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the progressbar. Takes a number and a message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.ProgressBarClose">
+<code class="descname">ProgressBarClose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.ProgressBarClose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.ProgressBarClose" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method closes the progress bar widget</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getCategoryCombo">
+<code class="descname">getCategoryCombo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getCategoryCombo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getCategoryCombo" title="Permalink to this definition">¶</a></dt>
+<dd><p>get category choice from combo box,
+this is the unique values for regression analysis.
+returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getCopyAttrSelected">
+<code class="descname">getCopyAttrSelected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getCopyAttrSelected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getCopyAttrSelected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of the attributes selected in the copy
+attr QListWidget</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getDateFormatCheckbok">
+<code class="descname">getDateFormatCheckbok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getDateFormatCheckbok"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getDateFormatCheckbok" title="Permalink to this definition">¶</a></dt>
+<dd><p>get status from the date format checkbox</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getDateFormatCombo">
+<code class="descname">getDateFormatCombo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getDateFormatCombo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getDateFormatCombo" title="Permalink to this definition">¶</a></dt>
+<dd><p>get data column for dependent variable in 
+regresison analysis
+returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getDateFormatText">
+<code class="descname">getDateFormatText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getDateFormatText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getDateFormatText" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the name for the output layer from the 
+outputlayer line edit.
+returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getExportRisidualsOption">
+<code class="descname">getExportRisidualsOption</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getExportRisidualsOption"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getExportRisidualsOption" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns Export Riduals choice.
+returns boolean</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getInputLayer">
+<code class="descname">getInputLayer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getInputLayer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getInputLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>return vector layer from combo box for 
+analysis input
+returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getOutputLayerName">
+<code class="descname">getOutputLayerName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getOutputLayerName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getOutputLayerName" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the name for the output layer from the 
+outputlayer line edit.
+returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getXFieldCombo">
+<code class="descname">getXFieldCombo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getXFieldCombo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getXFieldCombo" title="Permalink to this definition">¶</a></dt>
+<dd><p>get data column name for independent variable
+for regression analysis
+returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.getYFieldCombo">
+<code class="descname">getYFieldCombo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.getYFieldCombo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.getYFieldCombo" title="Permalink to this definition">¶</a></dt>
+<dd><p>get data column for conversion
+returns string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.message">
+<code class="descname">message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>push a message to the status bar</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.setLayerAttributesCombos">
+<code class="descname">setLayerAttributesCombos</code><span class="sig-paren">(</span><em>inputList</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.setLayerAttributesCombos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.setLayerAttributesCombos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the three combo boxes for catagory, x and y
+fields with the availbe attribute columns from selected
+layer. Called after selection has been made on InputVectorCombo.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.setLayerInputCombo">
+<code class="descname">setLayerInputCombo</code><span class="sig-paren">(</span><em>layerList</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.setLayerInputCombo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.setLayerInputCombo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of available layers from 
+parent.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.setProgressBar">
+<code class="descname">setProgressBar</code><span class="sig-paren">(</span><em>main</em>, <em>text</em>, <em>maxVal=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.setProgressBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.setProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a message bar widget, add a progress bar and abort
+button. Add the widget to the message bar and hide the X, exit
+button.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="trend_mapper.TrendMapperDialog.updateAttributeCombos">
+<code class="descname">updateAttributeCombos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/trend_mapper_dialog.html#TrendMapperDialog.updateAttributeCombos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#trend_mapper.TrendMapperDialog.updateAttributeCombos" title="Permalink to this definition">¶</a></dt>
+<dd><p>this is the callback function that gets called by the 
+dialoge class when it needs the attribute data for a layer 
+when the combo index is changed. This function is here and 
+not in the dialog class so that the dialog class doesn’t 
+depend on the qgis interface.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-analysis">
+<span id="analysis-functions"></span><h1>Analysis Functions<a class="headerlink" href="#module-analysis" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="analysis.calculateLinearRegression">
+<code class="descclassname">analysis.</code><code class="descname">calculateLinearRegression</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>includeStats=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/analysis.html#calculateLinearRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#analysis.calculateLinearRegression" title="Permalink to this definition">¶</a></dt>
+<dd><p>take an array of tuples, [(x1,y1), (x2,y2) …, (xn,yn)]
+reorganize as two arrays [x1, x2 …, xn] and [y1, y2, …, yn]
+and use numpy least squares to find linear best fit coeeficients and
+return the slope and intercept for the best fit line and rank</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="analysis.calculateRisidualSum">
+<code class="descclassname">analysis.</code><code class="descname">calculateRisidualSum</code><span class="sig-paren">(</span><em>dataSet</em>, <em>slope</em>, <em>intercept</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/analysis.html#calculateRisidualSum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#analysis.calculateRisidualSum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a dataseries and calculate the difference in the real value
+for each year in the set with the value we get by using our linear model</p>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to TrendMapper’s documentation!</a></li>
+<li><a class="reference internal" href="#trend-mapper">Trend Mapper</a></li>
+<li><a class="reference internal" href="#trend-mapper-tools">Trend Mapper Tools</a></li>
+<li><a class="reference internal" href="#trend-mapper-dialog">Trend Mapper Dialog</a></li>
+<li><a class="reference internal" href="#module-analysis">Analysis Functions</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">TrendMapper 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013, Russell Loewe.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>
