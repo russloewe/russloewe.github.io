@@ -70,6 +70,9 @@
 
 <span class="kn">import</span> <span class="nn">os</span> 
 <span class="kn">from</span> <span class="nn">PyQt4</span> <span class="k">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">uic</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">trend_mapper_log</span> <span class="k">import</span> <span class="n">TrendMapperLogger</span>
+<span class="c1">#set the logger</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">TrendMapperLogger</span><span class="p">()</span>
 
 <span class="n">FORM_CLASS</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">uic</span><span class="o">.</span><span class="n">loadUiType</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
     <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;trend_mapper_dialog_base.ui&#39;</span><span class="p">))</span>
@@ -181,6 +184,10 @@
 <div class="viewcode-block" id="TrendMapperDialog.message"><a class="viewcode-back" href="../index.html#trend_mapper.TrendMapperDialog.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;push a message to the status bar&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span><span class="s1">&#39;Info&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="TrendMapperDialog.errmsg"><a class="viewcode-back" href="../index.html#trend_mapper.TrendMapperDialog.errmsg">[docs]</a>    <span class="k">def</span> <span class="nf">errmsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Slot for the trendmapper thread error signal&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span><span class="s1">&#39;Thread Error:&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
         
 <div class="viewcode-block" id="TrendMapperDialog.setProgressBar"><a class="viewcode-back" href="../index.html#trend_mapper.TrendMapperDialog.setProgressBar">[docs]</a>    <span class="k">def</span> <span class="nf">setProgressBar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">maxVal</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Create a message bar widget, add a progress bar and abort</span>

@@ -68,7 +68,7 @@
 <span class="sd"> ***************************************************************************/</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="k">import</span> <span class="n">QgsMapLayerRegistry</span><span class="p">,</span> <span class="n">QgsMessageLog</span>
+<span class="kn">from</span> <span class="nn">qgis.core</span> <span class="k">import</span> <span class="n">QgsMapLayerRegistry</span>
 <span class="kn">from</span> <span class="nn">PyQt4</span> <span class="k">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">uic</span><span class="p">,</span> <span class="n">QtCore</span>
 <span class="c1"># Initialize Qt resources from file resources.py</span>
 <span class="kn">import</span> <span class="nn">resources</span>
@@ -78,11 +78,9 @@
 <span class="kn">from</span> <span class="nn">trend_mapper_process</span> <span class="k">import</span> <span class="n">TrendMapperProcess</span>
 <span class="kn">from</span> <span class="nn">trend_mapper_logger</span> <span class="k">import</span> <span class="n">TrendMapperLogger</span>
 <span class="kn">from</span> <span class="nn">trend_mapper_tools</span> <span class="k">import</span> <span class="n">getLayerByName</span><span class="p">,</span> <span class="n">getUniqueKeys</span><span class="p">,</span> <span class="n">createVectorLayer</span>
+<span class="kn">from</span> <span class="nn">trend_mapper_log</span> <span class="k">import</span> <span class="n">TrendMapperLogger</span>
 <span class="c1"># Set the logger</span>
-<span class="n">log</span> <span class="o">=</span> <span class="n">QgsMessageLog</span><span class="o">.</span><span class="n">logMessage</span>
-<span class="n">INFO</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">WARNING</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">CRITICAL</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">TrendMapperLogger</span><span class="p">()</span>
 
 <div class="viewcode-block" id="TrendMapper"><a class="viewcode-back" href="../index.html#trend_mapper.TrendMapper">[docs]</a><span class="k">class</span> <span class="nc">TrendMapper</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;QGIS Plugin Implementation.&quot;&quot;&quot;</span>
@@ -247,6 +245,10 @@
 <div class="viewcode-block" id="TrendMapper.run"><a class="viewcode-back" href="../index.html#trend_mapper.TrendMapper.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_run</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run method when TrendMapper in launched.</span>
 <span class="sd">        Sets up and shows dialog and launches TrendMapper.process()</span>
+<span class="sd">        </span>
+<span class="sd">        :param test_run: Flag to skip showing the dialog widget and</span>
+<span class="sd">            running the event loop. Defaults to False.</span>
+<span class="sd">        :type test_run: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Give the dialoge the list of layers</span>
@@ -254,6 +256,7 @@
         <span class="n">allLayers</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span> <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">setLayerInputCombo</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">allLayers</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">updateAttributeCombos</span><span class="p">()</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">test_run</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
@@ -302,6 +305,7 @@
                          <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">ProgressBar</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">tmprocess</span><span class="p">,</span> <span class="n">tmprocess</span><span class="o">.</span><span class="n">stopSig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stp</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">tmprocess</span><span class="p">,</span> <span class="n">tmprocess</span><span class="o">.</span><span class="n">msgSig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">tmprocess</span><span class="p">,</span> <span class="n">tmprocess</span><span class="o">.</span><span class="n">errSig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">errmsg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">tmprocess</span><span class="p">,</span> <span class="n">tmprocess</span><span class="o">.</span><span class="n">abortSig</span><span class="p">,</span>
                          <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">ProgressBarClose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">abortButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">tmprocess</span><span class="o">.</span><span class="n">abort</span><span class="p">)</span>
